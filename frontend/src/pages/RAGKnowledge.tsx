@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Card, Row, Col, Input, Table, Tag, Statistic, Select, Tabs, List, Typography, Space } from 'antd';
+import { Card, Row, Col, Input, List, Tag, Statistic, Select, Tabs, Space } from 'antd';
 import { SearchOutlined, DatabaseOutlined, FileTextOutlined } from '@ant-design/icons';
-import { mockRAGResults, mockRAGStats } from '../mock/data';
+import { mockRAGResults, mockRAGStats, mockKnowledgeGraph } from '../mock/data';
+import KnowledgeGraph from '../components/KnowledgeGraph';
 
 export default function RAGKnowledge() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -102,11 +103,11 @@ export default function RAGKnowledge() {
             key: 'graph',
             label: '知识图谱',
             children: (
-              <Card size="small" style={{ minHeight: 200, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Typography.Text type="secondary">
-                  知识图谱可视化 — 展示 客户-行业-产品-案例-人员 多跳关联关系（接入 Neo4j / GraphRAG 后可用）
-                </Typography.Text>
-              </Card>
+              <KnowledgeGraph
+                nodes={mockKnowledgeGraph.nodes}
+                links={mockKnowledgeGraph.links}
+                height={560}
+              />
             ),
           },
         ]}

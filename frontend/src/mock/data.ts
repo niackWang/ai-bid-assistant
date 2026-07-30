@@ -131,3 +131,58 @@ export const mockBidHistory = [
   { id: 3, project: "XX部委信息化升级", client: "XX部委", budget: 1560, result: "未中标", score: 85.6, date: "2025-08" },
   { id: 4, project: "XX区政务服务中心", client: "XX区行政审批局", budget: 380, result: "中标", score: 93.1, date: "2025-05" },
 ];
+
+export interface GraphNode {
+  id: string;
+  label: string;
+  group: 'client' | 'industry' | 'product' | 'case' | 'person' | 'cert';
+  value?: number;
+}
+
+export interface GraphLink {
+  source: string | GraphNode;
+  target: string | GraphNode;
+  relation: string;
+}
+
+export const mockKnowledgeGraph: { nodes: GraphNode[]; links: GraphLink[] } = {
+  nodes: [
+    { id: "C1", label: "某市大数据管理局", group: "client", value: 28 },
+    { id: "I1", label: "政务云", group: "industry", value: 24 },
+    { id: "P1", label: "政务云平台", group: "product", value: 22 },
+    { id: "P2", label: "数据中台", group: "product", value: 18 },
+    { id: "P3", label: "安全等保套件", group: "product", value: 16 },
+    { id: "CA1", label: "XX省大数据平台", group: "case", value: 20 },
+    { id: "CA2", label: "XX市智慧城管", group: "case", value: 18 },
+    { id: "CA3", label: "XX区政务服务中心", group: "case", value: 16 },
+    { id: "CA4", label: "XX部委信息化升级", group: "case", value: 14 },
+    { id: "PE1", label: "张三 / 项目经理", group: "person", value: 14 },
+    { id: "PE2", label: "李四 / 技术总监", group: "person", value: 14 },
+    { id: "PE3", label: "王五 / 安全专家", group: "person", value: 12 },
+    { id: "CE1", label: "CMMI三级", group: "cert", value: 12 },
+    { id: "CE2", label: "等保三级", group: "cert", value: 12 },
+    { id: "CE3", label: "PMP", group: "cert", value: 10 },
+  ],
+  links: [
+    { source: "C1", target: "I1", relation: "所属行业" },
+    { source: "I1", target: "P1", relation: "核心产品" },
+    { source: "I1", target: "P2", relation: "关联产品" },
+    { source: "I1", target: "P3", relation: "合规产品" },
+    { source: "C1", target: "CA1", relation: "历史项目" },
+    { source: "C1", target: "CA2", relation: "历史项目" },
+    { source: "C1", target: "CA3", relation: "历史项目" },
+    { source: "P1", target: "CA1", relation: "应用于" },
+    { source: "P2", target: "CA2", relation: "应用于" },
+    { source: "P1", target: "CA3", relation: "应用于" },
+    { source: "P3", target: "CA1", relation: "应用于" },
+    { source: "PE1", target: "CA1", relation: "负责" },
+    { source: "PE1", target: "CA3", relation: "负责" },
+    { source: "PE2", target: "CA1", relation: "支持" },
+    { source: "PE2", target: "CA2", relation: "支持" },
+    { source: "PE3", target: "CA1", relation: "支持" },
+    { source: "PE3", target: "CA4", relation: "支持" },
+    { source: "PE1", target: "CE3", relation: "持有" },
+    { source: "PE2", target: "CE1", relation: "持有" },
+    { source: "PE3", target: "CE2", relation: "持有" },
+  ],
+};
